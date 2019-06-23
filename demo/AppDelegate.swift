@@ -9,13 +9,26 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate , BMKLocationAuthDelegate {
 
     var window: UIWindow?
 
-
+    private lazy var mapManager :BMKMapManager = {return BMKMapManager()}()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        BMKLocationAuth.sharedInstance()?.checkPermision(withKey: "2z9ZOOZSKT8sCkECEO73VUfuGL6E5eC8", authDelegate: self)
+
+        mapManager = BMKMapManager()
+        let ret = mapManager.start("2z9ZOOZSKT8sCkECEO73VUfuGL6E5eC8", generalDelegate: nil)
+        if ret == false {
+            NSLog("=>baidu map manager start")
+        }
         // Override point for customization after application launch.
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//        self.window?.rootViewController = MyViewController()
+//        self.window?.backgroundColor = UIColor.init(white: 0.98,alpha: 1)
+//        self.window?.makeKeyAndVisible()
+        
         return true
     }
 
